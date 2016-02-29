@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  consumer_id: 
+  complaint_type_id: 
+  company_id: 
+
+two:
+  description: MyText
+  consumer_id: 
+  complaint_type_id: 
+  company_id: 

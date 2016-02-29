@@ -1,0 +1,22 @@
+<p>
+  <strong>Company:</strong>
+  <%= @complaint.company.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @complaint.description %>
+</p>
+
+<p>
+  <strong>Consumer:</strong>
+  <%= @complaint.consumer.email rescue '-'%>
+</p>
+
+<p>
+  <strong>Complaint type:</strong>
+  <%= @complaint.complaint_type.name rescue '-'%>
+</p>
+
+<%= link_to 'Edit', edit_complaint_path(@complaint) %> |
+<%= link_to 'Back', complaints_path %>

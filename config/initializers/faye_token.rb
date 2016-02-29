@@ -1,0 +1,1 @@
+FAYE_TOKEN = "fb5366ca3cd858247d14a203c42b3801c198315f"  #anything

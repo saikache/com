@@ -1,0 +1,6 @@
+== README
+
+
+To run faye server
+rackup faye.ru -s thin -E production
+
