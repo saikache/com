@@ -1,6 +1,7 @@
 <h1>My Complaints</h1>
 
 <div class="table-responsive">
+<%unless @complaints.blank?%>
   <table>
     <thead>
       <tr>
@@ -23,6 +24,9 @@
       <% end %>
     </tbody>
   </table>
+  <%else%>
+    <h5>Register Your First Complaint</h5>
+  <%end%>
 </div>
 
 <br>
