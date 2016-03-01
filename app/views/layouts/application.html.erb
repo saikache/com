@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Com" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Complaints Form" %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all"%>
@@ -24,18 +24,19 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Com</a>
+        <a class="navbar-brand" href="/">Complaints Form</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
 
+            <%if moderator_signed_in?%>
+              <li><%= link_to "New Complaint", "/complaints/new"  %></li>
+            <%end%>
 
-            <li><%= link_to "New Complaint", "/complaints/new"  %></li>
-
-            <%#if moderator_signed_in?%>
+            <%if moderator_signed_in?%>
               <!-- <li><%#= link_to "Messages", "/messages"  %></li> -->
               <li><%= link_to "Complaint Types", "/complaint_types"  %></li>
               <li><%= link_to "Companies", "/companies"  %></li>
-            <%#end%>
+            <%end%>
 
           </ul>
         </div>
@@ -55,13 +56,13 @@
               <!-- <li class="nav-header">Sidebar</li> -->
               <li>
 
-                <%unless consumer_signed_in?%>
+                <%unless consumer_signed_in? || industry_signed_in?%>
                   <div id="user_nav">
                     <% if moderator_signed_in? %>
                       Signed in as <%= current_moderator.email %><b> (Moderator)</b> Not you?
                       <%= link_to "Sign out", destroy_moderator_session_path, :method => :delete %>
                     <% else %>
-                    <b>Moderator:</b> 
+                    <b>Moderator:</b>
                       <%= link_to "Sign up", new_moderator_registration_path %> or <%= link_to "sign in", new_moderator_session_path %>
                       <hr>
                     <% end %>
@@ -71,9 +72,21 @@
               <%#= link_to "Complaints", "/complaints"  %></li>
               <!-- <li><%#= link_to "Link2", "/path2"  %></li> -->
               <!-- <hr> -->
+              <%unless moderator_signed_in? || consumer_signed_in?%>
+                <div id="user_nav">
+                  <% if industry_signed_in? %>
+                    Signed in as <%= current_industry.email %><b> (Industrialists) </b> Not you?
+                    <%= link_to "Sign out", destroy_industry_session_path, :method => :delete %>
+                  <% else %>
+                  <b>Industrialists:</b> 
+                    <%= link_to "Sign up", new_industry_registration_path %> or <%= link_to "sign in", new_industry_session_path, id: 'consumer_login' %>
+                      <hr>
+                  <% end %>
+                </div>
+              <%end%>
 
               <li>
-              <%unless moderator_signed_in?%>
+              <%unless moderator_signed_in? || industry_signed_in?%>
                 <div id="user_nav">
                   <% if consumer_signed_in? %>
                     Signed in as <%= current_consumer.email %><b> (Consumer) </b> Not you?
