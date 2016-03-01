@@ -1,32 +1,38 @@
 <h1>Listing Complaints</h1>
 
 <div class="table-responsive">
-  <table>
-    <thead>
-      <tr>
-        <th>Complaint type</th>
-        <th>Description</th>
-        <th>Consumer</th>
-        <th>Company</th>
-        <th>Show</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @complaints.each do |complaint| %>
+  <%unless @complaints.blank?%>
+    <table>
+      <thead>
         <tr>
-          <td><%= complaint.complaint_type.name rescue '-' %></td>
-          <td><%= complaint.description %></td>
-          <td><%= complaint.consumer.email rescue '-' %></td>
-          <td><%= complaint.company.name rescue '-' %></td>
-          <td><%= link_to 'Show', complaint %></td>
-          <td><%= link_to 'Edit', edit_complaint_path(complaint) %></td>
-          <!-- <td><%#= link_to 'Destroy', complaint, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          <th>Complaint type</th>
+          <th>Description</th>
+          <th>Consumer</th>
+          <th>Company</th>
+          <th>Show</th>
+          <th>Edit</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @complaints.each do |complaint| %>
+          <tr>
+            <td><%= complaint.complaint_type.name rescue '-' %></td>
+            <td><%= complaint.description %></td>
+            <td><%= complaint.consumer.email rescue '-' %></td>
+            <td><%= complaint.company.name rescue '-' %></td>
+            <td><%= link_to 'Show', complaint %></td>
+            <td><%= link_to 'Edit', edit_complaint_path(complaint) %></td>
+            <!-- <td><%#= link_to 'Destroy', complaint, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <%else%>
+    <div class="col-lg-3">
+      <h6>No Complaints Available...</h6>
+    </div>
+  <%end%>
 </div>
 
 <br>

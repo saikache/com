@@ -28,12 +28,14 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
 
-            <%if moderator_signed_in?%>
+            <%if consumer_signed_in?%>
+              <li><%= link_to "My Complaints", consumer_complaints_complaints_path  %></li>
               <li><%= link_to "New Complaint", "/complaints/new"  %></li>
             <%end%>
 
             <%if moderator_signed_in?%>
               <!-- <li><%#= link_to "Messages", "/messages"  %></li> -->
+              <li><%= link_to "Complaints", "/complaints"  %></li>
               <li><%= link_to "Complaint Types", "/complaint_types"  %></li>
               <li><%= link_to "Companies", "/companies"  %></li>
             <%end%>
