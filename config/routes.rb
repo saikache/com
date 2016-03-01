@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
-  resources :complaints
+  resources :complaints do
+    collection do
+      get 'consumer_complaints'
+    end
+  end
   resources :companies
   resources :complaint_types
-  devise_for :consumers
   resources :messages
   root 'home#index'
   get 'home/index'
 
+  devise_for :industries, controllers: {sessions: "sessions"}
+  devise_for :moderators, controllers: {sessions: "sessions"}
+  devise_for :consumers, controllers: {sessions: "sessions"}
+
+  # devise_for :users, controllers: {sessions: "sessions"}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

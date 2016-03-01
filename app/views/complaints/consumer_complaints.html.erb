@@ -1,4 +1,4 @@
-<h1>Listing Complaints</h1>
+<h1>My Complaints</h1>
 
 <div class="table-responsive">
   <table>
@@ -6,10 +6,8 @@
       <tr>
         <th>Complaint type</th>
         <th>Description</th>
-        <th>Consumer</th>
         <th>Company</th>
         <th>Show</th>
-        <th>Edit</th>
       </tr>
     </thead>
 
@@ -18,10 +16,8 @@
         <tr>
           <td><%= complaint.complaint_type.name rescue '-' %></td>
           <td><%= complaint.description %></td>
-          <td><%= complaint.consumer.email rescue '-' %></td>
           <td><%= complaint.company.name rescue '-' %></td>
           <td><%= link_to 'Show', complaint %></td>
-          <td><%= link_to 'Edit', edit_complaint_path(complaint) %></td>
           <!-- <td><%#= link_to 'Destroy', complaint, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
         </tr>
       <% end %>
@@ -31,4 +27,4 @@
 
 <br>
 
-<%#= link_to 'New Complaint', new_complaint_path, class: 'btn btn-success'%>
+<%= link_to 'New Complaint', new_complaint_path, class: 'btn btn-success'%>

@@ -1,10 +1,23 @@
 class ComplaintsController < ApplicationController
   before_action :set_complaint, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_consumer!#, :except => [:index]
+  before_action :authenticate_consumer!, :only => [:new, :show, :consumer_complaints]
+
+
+  before_action :authenticate_moderator!, :only => [:index, :edit, :destroy, :update]
   # GET /complaints
   # GET /complaints.json
+
+# load_and_authorize_resource
+
+
+
   def index
-    @complaints = Complaint.all
+    @complaints = []
+    @complaints = Complaint.all# if moderator_signed_in?
+  end
+
+  def consumer_complaints
+    @complaints = Complaint.where(consumer_id: current_consumer.id)# if consumer_signed_in?
   end
 
   # GET /complaints/1

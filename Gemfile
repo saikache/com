@@ -30,7 +30,7 @@ gem "twitter-bootstrap-rails"
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'pg'
-
+gem 'cancancan'
 gem 'faye'
 gem 'thin'
 gem 'rack'

@@ -28,10 +28,16 @@
         <a class="navbar-brand" href="/">Com</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
-            <li><%= link_to "Messages", "/messages"  %></li>
+
+
             <li><%= link_to "New Complaint", "/complaints/new"  %></li>
-            <li><%= link_to "Complaint Types", "/complaint_types"  %></li>
-            <li><%= link_to "Companies", "/companies"  %></li>
+
+            <%#if moderator_signed_in?%>
+              <!-- <li><%#= link_to "Messages", "/messages"  %></li> -->
+              <li><%= link_to "Complaint Types", "/complaint_types"  %></li>
+              <li><%= link_to "Companies", "/companies"  %></li>
+            <%#end%>
+
           </ul>
         </div>
       </div>
@@ -48,19 +54,37 @@
             <!-- <h3>Sidebar</h3> -->
             <ul class="nav nav-list">
               <!-- <li class="nav-header">Sidebar</li> -->
-              <li><%#= link_to "Complaints", "/complaints"  %></li>
+              <li>
+
+                <%unless consumer_signed_in?%>
+                  <div id="user_nav">
+                    <% if moderator_signed_in? %>
+                      Signed in as <%= current_moderator.email %><b> (Moderator)</b> Not you?
+                      <%= link_to "Sign out", destroy_moderator_session_path, :method => :delete %>
+                    <% else %>
+                    <b>Moderator:</b> 
+                      <%= link_to "Sign up", new_moderator_registration_path %> or <%= link_to "sign in", new_moderator_session_path %>
+                      <hr>
+                    <% end %>
+                  </div>
+                <%end%>
+
+              <%#= link_to "Complaints", "/complaints"  %></li>
               <!-- <li><%#= link_to "Link2", "/path2"  %></li> -->
+              <!-- <hr> -->
 
               <li>
+              <%unless moderator_signed_in?%>
                 <div id="user_nav">
                   <% if consumer_signed_in? %>
-                    Signed in as <%= current_consumer.email %>. Not you?
+                    Signed in as <%= current_consumer.email %><b> (Consumer) </b> Not you?
                     <%= link_to "Sign out", destroy_consumer_session_path, :method => :delete %>
                   <% else %>
                   <b>Consumer:</b> 
-                    <%= link_to "Sign up", new_consumer_registration_path %> or <%= link_to "sign in", new_consumer_session_path %>
+                    <%= link_to "Sign up", new_consumer_registration_path %> or <%= link_to "sign in", new_consumer_session_path, id: 'consumer_login' %>
                   <% end %>
                 </div>
+              <%end%>
               </li>
             </ul>
           </div><!--/.well -->

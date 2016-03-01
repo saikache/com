@@ -18,5 +18,9 @@
   <%= @complaint.complaint_type.name rescue '-'%>
 </p>
 
-<%= link_to 'Edit', edit_complaint_path(@complaint) %> |
-<%= link_to 'Back', complaints_path %>
+<!-- <%#= link_to 'Edit', edit_complaint_path(@complaint) %> | -->
+<%if consumer_signed_in?%>
+  <%= link_to 'Back', consumer_complaints_complaints_path %>
+ <%else%>
+  <%= link_to 'Back', complaints_path %>
+<%end%>

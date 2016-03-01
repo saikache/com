@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229184724) do
+ActiveRecord::Schema.define(version: 20160301054629) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -34,9 +37,9 @@ ActiveRecord::Schema.define(version: 20160229184724) do
     t.datetime "updated_at",        null: false
   end
 
-  add_index "complaints", ["company_id"], name: "index_complaints_on_company_id"
-  add_index "complaints", ["complaint_type_id"], name: "index_complaints_on_complaint_type_id"
-  add_index "complaints", ["consumer_id"], name: "index_complaints_on_consumer_id"
+  add_index "complaints", ["company_id"], name: "index_complaints_on_company_id", using: :btree
+  add_index "complaints", ["complaint_type_id"], name: "index_complaints_on_complaint_type_id", using: :btree
+  add_index "complaints", ["consumer_id"], name: "index_complaints_on_consumer_id", using: :btree
 
   create_table "consumers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -53,8 +56,26 @@ ActiveRecord::Schema.define(version: 20160229184724) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "consumers", ["email"], name: "index_consumers_on_email", unique: true
-  add_index "consumers", ["reset_password_token"], name: "index_consumers_on_reset_password_token", unique: true
+  add_index "consumers", ["email"], name: "index_consumers_on_email", unique: true, using: :btree
+  add_index "consumers", ["reset_password_token"], name: "index_consumers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "industries", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "industries", ["email"], name: "index_industries_on_email", unique: true, using: :btree
+  add_index "industries", ["reset_password_token"], name: "index_industries_on_reset_password_token", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.string   "content"
@@ -62,4 +83,25 @@ ActiveRecord::Schema.define(version: 20160229184724) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "moderators", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "moderators", ["email"], name: "index_moderators_on_email", unique: true, using: :btree
+  add_index "moderators", ["reset_password_token"], name: "index_moderators_on_reset_password_token", unique: true, using: :btree
+
+  add_foreign_key "complaints", "companies"
+  add_foreign_key "complaints", "complaint_types"
+  add_foreign_key "complaints", "consumers"
 end

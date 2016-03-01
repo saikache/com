@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# ComplaintType.create({name: 'Expiry Date', name: 'Low quality', name: 'Not working', name: 'Quality decreased'})

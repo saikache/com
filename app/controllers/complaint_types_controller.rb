@@ -1,6 +1,14 @@
 class ComplaintTypesController < ApplicationController
   before_action :set_complaint_type, only: [:show, :edit, :update, :destroy]
 
+before_action :check_session
+
+  before_action :authenticate_moderator!#, :except => [:index]
+
+
+def check_session
+  # byebug
+end
   # GET /complaint_types
   # GET /complaint_types.json
   def index
